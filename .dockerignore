@@ -1,0 +1,17 @@
+.git
+.gitignore
+README.md
+.next
+node_modules
+npm-debug.log*
+.env
+.env.local
+.env.production.local
+.env.development.local
+.dockerignore
+Dockerfile
+docker-compose.yml
+.next.zip
+coverage
+.vercel
+*.tsbuildinfo
