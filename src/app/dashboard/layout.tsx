@@ -16,6 +16,7 @@ import {
   User,
   Bell,
   Wallet,
+  Terminal,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -79,6 +80,21 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 </Link>
               )
             })}
+
+            <div className="pt-4 mt-4 border-t border-gray-200">
+              <Link
+                href="/terminal"
+                className={cn(
+                  'flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-colors',
+                  pathname === '/terminal'
+                    ? 'bg-green-600 text-white'
+                    : 'bg-green-50 text-green-700 hover:bg-green-100'
+                )}
+              >
+                <Terminal className={cn('w-5 h-5 mr-3', pathname === '/terminal' ? 'text-white' : 'text-green-600')} />
+                Trading Terminal
+              </Link>
+            </div>
           </nav>
 
           <div className="p-3 border-t border-gray-200">
