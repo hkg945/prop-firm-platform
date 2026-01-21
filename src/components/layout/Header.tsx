@@ -2,16 +2,17 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Menu, X, Globe, ChevronDown } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
+import { Menu, X, Globe, ChevronDown, User, LogOut, LayoutDashboard } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/contexts/AuthContext'
 
 const navItems = [
-  { label: 'nav.home', href: '/' },
-  { label: 'nav.challenges', href: '/challenges' },
-  { label: 'nav.rules', href: '/rules' },
-  { label: 'nav.faq', href: '/faq' },
+  { label: 'Home', href: '/' },
+  { label: 'Challenges', href: '/challenges' },
+  { label: 'Rules', href: '/rules' },
+  { label: 'FAQ', href: '/faq' },
 ]
 
 const languages = [
@@ -20,14 +21,19 @@ const languages = [
   { code: 'tw', name: '繁體中文' },
 ]
 
-interface HeaderProps {
-  translations: Record<string, string>
-}
-
-export function Header({ translations }: HeaderProps) {
+export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLangOpen, setIsLangOpen] = useState(false)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
+  const { user, logout, isAuthenticated } = useAuth()
+
+  const handleLogout = () => {
+    logout()
+    router.push('/')
+    setIsUserMenuOpen(false)
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
@@ -52,7 +58,7 @@ export function Header({ translations }: HeaderProps) {
                     : 'text-gray-600'
                 )}
               >
-                {translations[item.label]}
+                {item.label}
               </Link>
             ))}
           </div>
@@ -68,7 +74,7 @@ export function Header({ translations }: HeaderProps) {
                 <ChevronDown className="w-3 h-3" />
               </button>
               {isLangOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-100 py-1">
+                <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
@@ -80,16 +86,54 @@ export function Header({ translations }: HeaderProps) {
                 </div>
               )}
             </div>
-            <Link href="/login">
-              <Button variant="ghost" size="sm">
-                {translations['nav.login']}
-              </Button>
-            </Link>
-            <Link href="/signup">
-              <Button size="sm">
-                {translations['nav.signup']}
-              </Button>
-            </Link>
+
+            {isAuthenticated && user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100"
+                >
+                  <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center">
+                    <User className="w-4 h-4 text-primary-600" />
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">{user.firstName}</span>
+                  <ChevronDown className="w-3 h-3 text-gray-400" />
+                </button>
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <LayoutDashboard className="w-4 h-4 mr-2" />
+                      Dashboard
+                    </Link>
+                    <hr className="my-1" />
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-50"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="ghost" size="sm">
+                    Log In
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button size="sm">
+                    Sign Up
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           <button
@@ -115,20 +159,35 @@ export function Header({ translations }: HeaderProps) {
                   )}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {translations[item.label]}
+                  {item.label}
                 </Link>
               ))}
               <div className="pt-4 border-t border-gray-100 space-y-2">
-                <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="secondary" className="w-full">
-                    {translations['nav.login']}
-                  </Button>
-                </Link>
-                <Link href="/signup" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full">
-                    {translations['nav.signup']}
-                  </Button>
-                </Link>
+                {isAuthenticated ? (
+                  <>
+                    <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}>
+                      <Button variant="secondary" className="w-full">
+                        Dashboard
+                      </Button>
+                    </Link>
+                    <Button variant="ghost" className="w-full" onClick={handleLogout}>
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                      <Button variant="secondary" className="w-full">
+                        Log In
+                      </Button>
+                    </Link>
+                    <Link href="/signup" onClick={() => setIsMenuOpen(false)}>
+                      <Button className="w-full">
+                        Sign Up
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>

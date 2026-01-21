@@ -67,9 +67,9 @@ export const authorize = (...roles: ('user' | 'admin')[]) => {
     if (!req.user) {
       res.status(401).json({
         success: false,
-        required',
+        error: 'Authentication required',
       })
- error: 'Authentication      return
+      return
     }
 
     if (!roles.includes(req.user.role)) {
