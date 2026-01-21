@@ -11,7 +11,7 @@ interface WatchlistProps {
 }
 
 export function Watchlist({ className }: WatchlistProps) {
-  const { symbols, quotes, selectSymbol, currentSymbol } = useTrading()
+  const { symbols = [], quotes = {}, selectSymbol, currentSymbol } = useTrading()
   const [sortBy, setSortBy] = useState<'symbol' | 'change' | 'volume'>('symbol')
   const [favorites, setFavorites] = useState<string[]>([])
 
@@ -23,9 +23,9 @@ export function Watchlist({ className }: WatchlistProps) {
     )
   }, [])
 
-  const displayedSymbols = symbols.filter(s => s.isAvailable)
+  const displayedSymbols = symbols.filter((s: Symbol) => s.isAvailable)
 
-  const getQuote = (symbol: string): WatchlistItem | null => {
+  const getQuote = (symbol: string): { bid: number; ask: number; changePercent: number } | null => {
     return quotes[symbol] || null
   }
 
