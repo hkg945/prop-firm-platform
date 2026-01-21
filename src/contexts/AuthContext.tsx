@@ -3,6 +3,8 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import { User, login as loginApi, register as registerApi, getProfile, setTokens, removeTokens, getAccessToken, getRefreshToken } from '@/services/auth'
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3003/api/v1'
+
 interface AuthContextType {
   user: User | null
   loading: boolean
@@ -20,14 +22,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     async function initAuth() {
-      const token = getAccessToken()
-      if (token) {
-        const userData = await getProfile(token)
-        if (userData) {
-          setUser(userData)
-        } else {
-          removeTokens()
+      try {
+        const token = getAccessToken()
+        if (token) {
+          const userData = await getProfile(token)
+          if (userData) {
+            setUser(userData)
+          } else {
+            const refreshToken = getRefreshToken()
+            if (refreshToken) {
+              const response = await fetch(`${API_URL}/auth/refresh`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ refreshToken }),
+              })
+              const data = await response.json()
+              if (data.success && data.data?.accessToken) {
+                setTokens(data.data.accessToken, refreshToken)
+                const newUserData = await getProfile(data.data.accessToken)
+                if (newUserData) {
+                  setUser(newUserData)
+                }
+              }
+            }
+          }
         }
+      } catch (error) {
+        console.error('Auth init error:', error)
       }
       setLoading(false)
     }
