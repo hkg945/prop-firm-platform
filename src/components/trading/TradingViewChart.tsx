@@ -53,10 +53,10 @@ export function TradingViewChart({
     setIsLoading(true)
     setError(null)
 
-    if (widgetRef.current) {
-      widgetRef.current.remove()
-      widgetRef.current = null
+    if (containerRef.current) {
+      containerRef.current.innerHTML = ''
     }
+    widgetRef.current = null
 
     const widgetContainer = document.createElement('div')
     widgetContainer.id = 'tradingview_chart'
@@ -148,9 +148,10 @@ export function TradingViewChart({
     document.head.appendChild(script)
 
     return () => {
-      if (widgetRef.current) {
-        widgetRef.current.remove()
+      if (containerRef.current) {
+        containerRef.current.innerHTML = ''
       }
+      widgetRef.current = null
     }
   }, [loadWidget])
 
