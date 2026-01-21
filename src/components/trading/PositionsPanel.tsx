@@ -12,7 +12,7 @@ interface PositionsPanelProps {
 }
 
 export function PositionsPanel({ className }: PositionsPanelProps) {
-  const { positions, closePosition, modifyPosition, currentSymbol } = useTrading()
+  const { positions = [], closePosition, modifyPosition, currentSymbol } = useTrading()
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editSl, setEditSl] = useState<number>(0)
   const [editTp, setEditTp] = useState<number>(0)
