@@ -156,11 +156,25 @@ interface TradingContextValue {
   closePosition: (id: string) => void
   setPendingOrders: (orders: Order[]) => void
   submitOrder: (order: OrderFormData) => void
+  submitOCOOrder: (order: OCOOrderData) => void
   cancelOrder: (id: string) => void
   modifyPosition: (id: string, updates: { sl?: number; tp?: number }) => void
   setAccount: (account: Account) => void
   setInterval: (interval: ChartInterval) => void
   calculateRisk: (volume: number, sl?: number) => RiskCalculation | null
+  loadPositions: () => Promise<void>
+  loadAccount: () => Promise<void>
+  pendingOrder: boolean
+}
+
+interface OCOOrderData {
+  symbol: string
+  side: 'buy' | 'sell'
+  volume: number
+  sl: number
+  tp: number
+  comment?: string
+  timeInForce?: string
 }
 
 const TradingContext = createContext<TradingContextValue | null>(null)
@@ -216,6 +230,7 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
 
   const submitOrder = useCallback(async (order: OrderFormData) => {
     try {
+      setIsSubmitting(true)
       const response = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -224,9 +239,81 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
       const data = await response.json()
       if (data.success) {
         dispatch({ type: 'ADD_PENDING_ORDER', payload: data.data.order })
+        if (data.data.position) {
+          dispatch({ type: 'ADD_POSITION', payload: data.data.position })
+        }
       }
+      return data
     } catch (error) {
       console.error('Failed to submit order:', error)
+      throw error
+    } finally {
+      setIsSubmitting(false)
+    }
+  }, [API_URL])
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const submitOCOOrder = useCallback(async (order: OCOOrderData) => {
+    try {
+      setIsSubmitting(true)
+      const response = await fetch(`${API_URL}/oco`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order),
+      })
+      const data = await response.json()
+      if (data.success) {
+        await loadPendingOrders()
+      }
+      return data
+    } catch (error) {
+      console.error('Failed to submit OCO order:', error)
+      throw error
+    } finally {
+      setIsSubmitting(false)
+    }
+  }, [API_URL])
+
+  const loadPendingOrders = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_URL}/orders`, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json()
+      if (data.success) {
+        dispatch({ type: 'SET_PENDING_ORDERS', payload: data.data.orders })
+      }
+    } catch (error) {
+      console.error('Failed to load pending orders:', error)
+    }
+  }, [API_URL])
+
+  const loadPositions = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_URL}/positions`, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json()
+      if (data.success) {
+        dispatch({ type: 'SET_POSITIONS', payload: data.data.positions })
+      }
+    } catch (error) {
+      console.error('Failed to load positions:', error)
+    }
+  }, [API_URL])
+
+  const loadAccount = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_URL}/accounts`, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json()
+      if (data.success && data.data.account) {
+        dispatch({ type: 'SET_ACCOUNT', payload: data.data.account })
+      }
+    } catch (error) {
+      console.error('Failed to load account:', error)
     }
   }, [API_URL])
 
@@ -343,11 +430,15 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
     closePosition,
     setPendingOrders,
     submitOrder,
+    submitOCOOrder,
     cancelOrder,
     modifyPosition,
     setAccount,
     setInterval,
     calculateRisk,
+    loadPositions,
+    loadAccount,
+    pendingOrder: isSubmitting,
   }
 
   return (

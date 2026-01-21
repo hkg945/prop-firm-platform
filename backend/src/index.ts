@@ -8,9 +8,10 @@ import rateLimit from 'express-rate-limit'
 import { config } from './config'
 import routes from './routes'
 import { errorHandler, notFound } from './middleware/error'
-import { initializeDatabase, db } from './db/sqlite'
+import { initializeDatabase, seedSymbols, db } from './db/sqlite'
 
 initializeDatabase()
+seedSymbols()
 
 const app = express()
 
