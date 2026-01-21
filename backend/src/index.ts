@@ -8,7 +8,9 @@ import rateLimit from 'express-rate-limit'
 import { config } from './config'
 import routes from './routes'
 import { errorHandler, notFound } from './middleware/error'
-import { query } from './db'
+import { initializeDatabase, db } from './db/sqlite'
+
+initializeDatabase()
 
 const app = express()
 
@@ -46,9 +48,9 @@ app.use(compression())
 app.use('/api', routes)
 
 // Health check
-app.get('/health', async (_req, res) => {
+app.get('/health', (_req, res) => {
   try {
-    await query('SELECT 1')
+    db.prepare('SELECT 1').get()
     res.json({ status: 'healthy', database: 'connected' })
   } catch {
     res.status(503).json({ status: 'unhealthy', database: 'disconnected' })
@@ -64,16 +66,19 @@ app.listen(config.port, () => {
   console.log(`🚀 Server running on port ${config.port}`)
   console.log(`📝 Environment: ${config.env}`)
   console.log(`🔗 API URL: ${config.apiUrl}`)
+  console.log(`💾 Database: SQLite (data.db)`)
 })
 
 // Graceful shutdown
 process.on('SIGTERM', async () => {
   console.log('SIGTERM received, shutting down gracefully')
+  db.close()
   process.exit(0)
 })
 
 process.on('SIGINT', async () => {
   console.log('SIGINT received, shutting down gracefully')
+  db.close()
   process.exit(0)
 })
 

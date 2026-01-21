@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import { config } from '../config'
-import { query, getMockUsers } from '../db'
+import { createUser, getUserByEmail, getUserById, updateLastLogin } from '../db/sqlite'
 
 const router = Router()
 
@@ -23,37 +23,11 @@ const registerSchema = z.object({
   timezone: z.string().optional(),
 })
 
-async function getUserByEmail(email: string): Promise<any | null> {
-  const mockUsers = getMockUsers()
-  for (const user of mockUsers.values()) {
-    if (user.email === email) {
-      return user
-    }
-  }
-  return null
-}
-
-async function getUserById(id: string): Promise<any | null> {
-  const mockUsers = getMockUsers()
-  for (const user of mockUsers.values()) {
-    if (user.id === id) {
-      return user
-    }
-  }
-  return null
-}
-
 router.post('/login', async (req, res) => {
   try {
     const data = loginSchema.parse(req.body)
-    const mockUsers = getMockUsers()
-    
-    let user = mockUsers.get(data.email) || null
-    
-    if (!user) {
-      user = await getUserByEmail(data.email)
-    }
 
+    const user = getUserByEmail(data.email)
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -61,7 +35,7 @@ router.post('/login', async (req, res) => {
       })
     }
 
-    const isValidPassword = await bcrypt.compare(data.password, user.passwordHash)
+    const isValidPassword = await bcrypt.compare(data.password, user.password_hash)
     if (!isValidPassword) {
       return res.status(401).json({
         success: false,
@@ -70,7 +44,7 @@ router.post('/login', async (req, res) => {
     }
 
     const accessToken = jwt.sign(
-      { userId: user.id, email: user.email, role: user.role, type: 'access' },
+      { userId: user.id, email: user.email, role: user.role || 'user', type: 'access' },
       config.jwt.secret,
       { expiresIn: config.jwt.accessExpiry }
     )
@@ -81,7 +55,9 @@ router.post('/login', async (req, res) => {
       { expiresIn: config.jwt.refreshExpiry }
     )
 
-    const { passwordHash, ...userWithoutPassword } = user
+    updateLastLogin(user.id)
+
+    const { password_hash, ...userWithoutPassword } = user
 
     res.json({
       success: true,
@@ -110,9 +86,8 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
   try {
     const data = registerSchema.parse(req.body)
-    const mockUsers = getMockUsers()
 
-    const existingUser = await getUserByEmail(data.email)
+    const existingUser = getUserByEmail(data.email)
     if (existingUser) {
       return res.status(409).json({
         success: false,
@@ -123,29 +98,26 @@ router.post('/register', async (req, res) => {
     const passwordHash = await bcrypt.hash(data.password, 12)
     const userId = uuidv4()
 
-    const newUser = {
+    const newUser = createUser({
       id: userId,
       email: data.email,
+      passwordHash,
       firstName: data.firstName,
       lastName: data.lastName,
-      phone: data.phone || null,
-      country: data.country || null,
-      timezone: data.timezone || 'UTC',
-      avatarUrl: null,
-      status: 'active' as const,
-      emailVerified: false,
-      twoFactorEnabled: false,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      lastLoginAt: null,
-      passwordHash,
-      role: 'user' as const,
+      phone: data.phone,
+      country: data.country,
+      timezone: data.timezone,
+    })
+
+    if (!newUser) {
+      return res.status(500).json({
+        success: false,
+        error: 'Failed to create user',
+      })
     }
 
-    mockUsers.set(data.email, newUser)
-
     const accessToken = jwt.sign(
-      { userId: newUser.id, email: newUser.email, role: newUser.role, type: 'access' },
+      { userId: newUser.id, email: newUser.email, role: newUser.role || 'user', type: 'access' },
       config.jwt.secret,
       { expiresIn: config.jwt.accessExpiry }
     )
@@ -156,7 +128,7 @@ router.post('/register', async (req, res) => {
       { expiresIn: config.jwt.refreshExpiry }
     )
 
-    const { passwordHash: _, ...userWithoutPassword } = newUser
+    const { password_hash, ...userWithoutPassword } = newUser
 
     res.status(201).json({
       success: true,
@@ -193,7 +165,7 @@ router.post('/refresh', async (req, res) => {
     }
 
     const decoded = jwt.verify(refreshToken, config.jwt.secret) as { userId: string; type: string }
-    
+
     if (decoded.type !== 'refresh') {
       return res.status(401).json({
         success: false,
@@ -201,7 +173,7 @@ router.post('/refresh', async (req, res) => {
       })
     }
 
-    const user = await getUserById(decoded.userId)
+    const user = getUserById(decoded.userId)
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -210,7 +182,7 @@ router.post('/refresh', async (req, res) => {
     }
 
     const newAccessToken = jwt.sign(
-      { userId: user.id, email: user.email, role: user.role, type: 'access' },
+      { userId: user.id, email: user.email, role: user.role || 'user', type: 'access' },
       config.jwt.secret,
       { expiresIn: config.jwt.accessExpiry }
     )
@@ -246,9 +218,9 @@ router.get('/profile', async (req, res) => {
     }
 
     const token = authHeader.split(' ')[1]
-    const decoded = jwt.verify(token, config.jwt.secret) as { userId: string; email: string }
-    
-    const user = await getUserById(decoded.userId)
+    const decoded = jwt.verify(token, config.jwt.secret) as { userId: string }
+
+    const user = getUserById(decoded.userId)
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -256,7 +228,7 @@ router.get('/profile', async (req, res) => {
       })
     }
 
-    const { passwordHash, ...userWithoutPassword } = user
+    const { password_hash, ...userWithoutPassword } = user
     res.json({
       success: true,
       data: {
