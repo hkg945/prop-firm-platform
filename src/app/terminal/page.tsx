@@ -21,10 +21,11 @@ const navItems = [
 
 export default function TerminalPage() {
   const { user, isAuthenticated, loading: authLoading, logout } = useAuth()
-  const { state: tradingState, positions } = useTrading()
+  const { state: tradingState } = useTrading()
   const router = useRouter()
   const [activeTab, setActiveTab] = useState('positions')
 
+  const positions = tradingState?.positions || []
   const account = tradingState.account || {
     balance: 100000,
     equity: 100000,
