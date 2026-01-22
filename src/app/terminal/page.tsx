@@ -24,6 +24,7 @@ export default function TerminalPage() {
   const { state: tradingState } = useTrading()
   const router = useRouter()
   const [activeTab, setActiveTab] = useState('positions')
+  const [serverTime, setServerTime] = useState('--:--:--')
 
   const positions = tradingState?.positions || []
   const account = tradingState.account || {
@@ -39,6 +40,15 @@ export default function TerminalPage() {
       router.push('/login')
     }
   }, [authLoading, isAuthenticated, router])
+
+  useEffect(() => {
+    const updateTime = () => {
+      setServerTime(new Date().toLocaleTimeString())
+    }
+    updateTime()
+    const interval = setInterval(updateTime, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   const handleLogout = useCallback(() => {
     logout()
@@ -128,7 +138,7 @@ export default function TerminalPage() {
             </div>
             <div className="flex items-center gap-4">
               <div className="text-sm text-gray-600">
-                Server Time: <span className="font-mono">{new Date().toLocaleTimeString()}</span>
+                Server Time: <span className="font-mono">{serverTime}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
