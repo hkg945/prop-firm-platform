@@ -283,12 +283,20 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
       const currentQuote = state.quotes[order.symbol]
 
       if (!symbol) {
-        throw new Error('Symbol not found')
+        const allSymbols = [...FOREX_PAIRS, ...CRYPTO_PAIRS, ...INDICES, ...COMMODITIES]
+        symbol = allSymbols.find(s => s.symbol === order.symbol)
       }
 
+      if (!symbol) {
+        throw new Error(`Symbol ${order.symbol} not found`)
+      }
+
+      const mockQuote = generateMockQuote(order.symbol)
       const currentPrice = order.side === 'buy'
-        ? (currentQuote?.ask || generateMockQuote(order.symbol).ask)
-        : (currentQuote?.bid || generateMockQuote(order.symbol).bid)
+        ? (currentQuote?.ask || mockQuote.ask)
+        : (currentQuote?.bid || mockQuote.bid)
+
+      console.log('Creating position:', { symbol: order.symbol, side: order.side, volume: order.volume, price: currentPrice })
 
       const position: Position = {
         id: uuidv4(),
@@ -311,8 +319,9 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
       }
 
       dispatch({ type: 'ADD_POSITION', payload: position })
+      console.log('Position added to state')
 
-      const totalProfit = [...state.positions, position].reduce((sum, p) => sum + (p.profit || 0), 0)
+      const totalProfit = [...(state.positions || []), position].reduce((sum, p) => sum + (p.profit || 0), 0)
       if (state.account) {
         dispatch({
           type: 'SET_ACCOUNT',
