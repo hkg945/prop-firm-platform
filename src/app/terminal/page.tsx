@@ -20,8 +20,17 @@ const navItems = [
 
 export default function TerminalPage() {
   const { user, isAuthenticated, loading: authLoading, logout } = useAuth()
+  const { state: tradingState, positions } = useTrading()
   const router = useRouter()
   const [activeTab, setActiveTab] = useState('positions')
+
+  const account = tradingState.account || {
+    balance: 100000,
+    equity: 100000,
+    usedMargin: 0,
+    freeMargin: 100000,
+    profit: 0,
+  }
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -46,8 +55,8 @@ export default function TerminalPage() {
   }
 
   const tabs = [
-    { id: 'positions', label: 'Positions', badge: 2 },
-    { id: 'orders', label: 'Orders', badge: 1 },
+    { id: 'positions', label: 'Positions', badge: positions.length },
+    { id: 'orders', label: 'Orders' },
     { id: 'history', label: 'History' },
   ]
 
@@ -174,24 +183,32 @@ export default function TerminalPage() {
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span className="text-gray-400">Balance</span>
-                      <span className="font-mono">$100,000.00</span>
+                      <span className="font-mono">${account.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-400">Equity</span>
-                      <span className="font-mono">$100,500.00</span>
+                      <span className="font-mono">${account.equity.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-400">Used Margin</span>
-                      <span className="font-mono">$1,500.00</span>
+                      <span className="font-mono">${account.usedMargin.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-400">Free Margin</span>
-                      <span className="font-mono text-green-400">$99,000.00</span>
+                      <span className={cn(
+                        'font-mono',
+                        account.freeMargin > 0 ? 'text-green-400' : 'text-red-400'
+                      )}>${account.freeMargin.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
                     </div>
                     <div className="pt-3 border-t border-gray-700">
                       <div className="flex justify-between">
                         <span className="text-gray-400">Total P/L</span>
-                        <span className="font-mono text-green-400">+$500.00</span>
+                        <span className={cn(
+                          'font-mono',
+                          account.profit >= 0 ? 'text-green-400' : 'text-red-400'
+                        )}>
+                          {account.profit >= 0 ? '+' : ''}${account.profit.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -201,20 +218,25 @@ export default function TerminalPage() {
                   <h3 className="font-semibold text-gray-900">Quick Stats</h3>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="bg-gray-50 rounded-lg p-3">
+                      <p className="text-xs text-gray-500">Positions</p>
+                      <p className="text-lg font-semibold text-gray-900">{positions.length}</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-3">
+                      <p className="text-xs text-gray-500">Total P/L</p>
+                      <p className={cn(
+                        'text-lg font-semibold',
+                        account.profit >= 0 ? 'text-green-600' : 'text-red-600'
+                      )}>
+                        {account.profit >= 0 ? '+' : ''}${account.profit.toFixed(2)}
+                      </p>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-3">
                       <p className="text-xs text-gray-500">Win Rate</p>
-                      <p className="text-lg font-semibold text-gray-900">65%</p>
+                      <p className="text-lg font-semibold text-gray-900">-</p>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-3">
                       <p className="text-xs text-gray-500">Profit Factor</p>
-                      <p className="text-lg font-semibold text-gray-900">2.15</p>
-                    </div>
-                    <div className="bg-gray-50 rounded-lg p-3">
-                      <p className="text-xs text-gray-500">Max Drawdown</p>
-                      <p className="text-lg font-semibold text-red-600">-2.5%</p>
-                    </div>
-                    <div className="bg-gray-50 rounded-lg p-3">
-                      <p className="text-xs text-gray-500">Total Trades</p>
-                      <p className="text-lg font-semibold text-gray-900">47</p>
+                      <p className="text-lg font-semibold text-gray-900">-</p>
                     </div>
                   </div>
                 </div>
