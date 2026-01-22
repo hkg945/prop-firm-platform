@@ -279,7 +279,7 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
   const submitOrder = useCallback(async (order: OrderFormData) => {
     setIsSubmitting(true)
     try {
-      const symbol = state.symbols.find(s => s.symbol === order.symbol)
+      let symbol = state.symbols.find(s => s.symbol === order.symbol)
       const currentQuote = state.quotes[order.symbol]
 
       if (!symbol) {
