@@ -57,7 +57,7 @@ export const getTrades = async (
       paramIndex++
     }
 
-    const result = await query<Trade>(
+    const result = await query(
       `SELECT t.id, t.account_id, t.mt4_ticket, t.symbol, t.direction,
               t.volume, t.entry_price, t.exit_price, t.entry_time,
               t.exit_time, t.pnl, t.pnl_percentage, t.swap, t.commission,

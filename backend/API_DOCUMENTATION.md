@@ -1,10 +1,10 @@
-# PropTrade Pro API Documentation
+# EdgeFlow Capital API Documentation
 
 ## Base URL
 
 ```
 Development: http://localhost:3001
-Production:  https://api.proptradepro.com
+Production:  https://api.edgeflowcapital.com
 ```
 
 ## Authentication
@@ -150,7 +150,7 @@ Query Parameters:
     "data": [
       {
         "id": "acc_001",
-        "accountNumber": "PTP-2024-001234",
+        "accountNumber": "EF-2024-001234",
         "type": "standard",
         "phase": "challenge_1",
         "status": "active",
@@ -191,7 +191,7 @@ Authorization: Bearer <access_token>
   "success": true,
   "data": {
     "id": "acc_001",
-    "accountNumber": "PTP-2024-001234",
+    "accountNumber": "EF-2024-001234",
     "type": "standard",
     "phase": "challenge_1",
     "status": "active",
@@ -267,7 +267,7 @@ Query Parameters:
       {
         "id": "trd_001",
         "accountId": "acc_001",
-        "accountNumber": "PTP-2024-001234",
+        "accountNumber": "EF-2024-001234",
         "symbol": "EURUSD",
         "direction": "buy",
         "volume": 1.0,

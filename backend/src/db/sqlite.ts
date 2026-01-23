@@ -1,9 +1,7 @@
 import Database from 'better-sqlite3'
 import path from 'path'
 import bcrypt from 'bcryptjs'
-import { fileURLToPath } from 'url'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const dbPath = path.join(__dirname, '../../data.db')
 
 const db = new Database(dbPath)

@@ -49,9 +49,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
             <Link href="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">PT</span>
+                <span className="text-white font-bold text-sm">EF</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">PropTrade Pro</span>
+              <span className="text-xl font-bold text-gray-900">EdgeFlow Capital</span>
             </Link>
             <button
               onClick={() => setSidebarOpen(false)}

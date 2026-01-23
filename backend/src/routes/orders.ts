@@ -10,6 +10,7 @@ import {
   getOrderById,
   createPosition,
   getAccountById,
+  getAccountByUserId,
   getSymbolBySymbol,
   getOpenPositions,
   closePosition,

@@ -1,4 +1,4 @@
-import { Pool, PoolClient, QueryResult } from 'pg'
+import { Pool, PoolClient, QueryResult, QueryResultRow } from 'pg'
 import { config } from '../config'
 
 const pool = new Pool({
@@ -9,7 +9,7 @@ const pool = new Pool({
   password: config.database.password,
   max: config.database.max,
   idleTimeoutMillis: config.database.idleTimeoutMillis,
-  connectionTimeoutMillis: config.connectionTimeoutMillis,
+  connectionTimeoutMillis: config.database.connectionTimeoutMillis,
 })
 
 pool.on('error', (err) => {
@@ -18,12 +18,12 @@ pool.on('error', (err) => {
 
 const mockUsers = new Map<string, any>()
 
-export async function query<T = any>(_text: string, _params?: any[]): Promise<QueryResult<T>> {
+export async function query<T extends QueryResultRow = any>(_text: string, _params?: any[]): Promise<QueryResult<T>> {
   try {
     return await pool.query<T>(_text, _params)
   } catch (error) {
     console.log('Database not available, using mock mode')
-    return { rows: [], rowCount: 0 } as QueryResult<T>
+    return { rows: [], rowCount: 0 } as unknown as QueryResult<T>
   }
 }
 

@@ -1,6 +1,6 @@
-# PropTrade Pro - Backend API
+# EdgeFlow Capital - Backend API
 
-Backend API server for the PropTrade Pro platform.
+Backend API server for the EdgeFlow Capital platform.
 
 ## Quick Start
 
@@ -22,10 +22,10 @@ npm start        # Run production server
 
 ## Database Setup
 
-1. Create a PostgreSQL database named `proptradepro`
+1. Create a PostgreSQL database named `edgeflowcapital`
 2. Run the schema:
    ```bash
-   psql -U postgres -d proptradepro -f schema.sql
+   psql -U postgres -d edgeflowcapital -f schema.sql
    ```
 3. Copy `.env.example` to `.env` and configure your settings
 

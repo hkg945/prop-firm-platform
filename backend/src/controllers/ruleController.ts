@@ -8,7 +8,7 @@ export const getRules = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const result = await query<ChallengeRule>(
+    const result = await query(
       `SELECT id, type, name, description, account_size, price,
               profit_target, max_drawdown, daily_drawdown,
               min_trading_days, duration_days, is_active,

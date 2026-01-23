@@ -45,14 +45,14 @@ router.post('/login', async (req, res) => {
 
     const accessToken = jwt.sign(
       { userId: user.id, email: user.email, role: user.role || 'user', type: 'access' },
-      config.jwt.secret,
-      { expiresIn: config.jwt.accessExpiry }
+      config.jwt.secret as jwt.Secret,
+      { expiresIn: config.jwt.accessExpiry } as any
     )
 
     const refreshToken = jwt.sign(
       { userId: user.id, type: 'refresh' },
-      config.jwt.secret,
-      { expiresIn: config.jwt.refreshExpiry }
+      config.jwt.secret as jwt.Secret,
+      { expiresIn: config.jwt.refreshExpiry } as any
     )
 
     updateLastLogin(user.id)
@@ -118,14 +118,14 @@ router.post('/register', async (req, res) => {
 
     const accessToken = jwt.sign(
       { userId: newUser.id, email: newUser.email, role: newUser.role || 'user', type: 'access' },
-      config.jwt.secret,
-      { expiresIn: config.jwt.accessExpiry }
+      config.jwt.secret as string,
+      { expiresIn: config.jwt.accessExpiry as any }
     )
 
     const refreshToken = jwt.sign(
       { userId: newUser.id, type: 'refresh' },
-      config.jwt.secret,
-      { expiresIn: config.jwt.refreshExpiry }
+      config.jwt.secret as string,
+      { expiresIn: config.jwt.refreshExpiry as any }
     )
 
     const { password_hash, ...userWithoutPassword } = newUser
@@ -183,8 +183,8 @@ router.post('/refresh', async (req, res) => {
 
     const newAccessToken = jwt.sign(
       { userId: user.id, email: user.email, role: user.role || 'user', type: 'access' },
-      config.jwt.secret,
-      { expiresIn: config.jwt.accessExpiry }
+      config.jwt.secret as string,
+      { expiresIn: config.jwt.accessExpiry as any }
     )
 
     res.json({

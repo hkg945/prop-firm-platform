@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express'
-import { AuthenticatedRequest } from './auth'
+import { AuthenticatedRequest } from '../middleware/auth'
 import { query } from '../db'
 import { Account, PaginatedResponse } from '../types'
 
@@ -14,7 +14,7 @@ export const getAccounts = async (
     const pageSize = parseInt(req.query.pageSize as string) || 10
     const offset = (page - 1) * pageSize
 
-    const result = await query<Account>(
+    const result = await query(
       `SELECT id, user_id, account_number, type, phase, status,
               starting_balance, balance, equity, margin, free_margin,
               profit, profit_target, profit_percentage,

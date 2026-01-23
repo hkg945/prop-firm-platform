@@ -22,7 +22,7 @@
       "success": "Success Rate"
     },
     "features": {
-      "title": "Why Choose PropTrade Pro",
+      "title": "Why Choose EdgeFlow Capital",
       "items": [
         {
           "title": "Instant Funding",
@@ -72,7 +72,7 @@
     },
     "cta": {
       "title": "Ready to Start Trading?",
-      "subtitle": "Join thousands of traders who are already funded with PropTrade Pro.",
+      "subtitle": "Join thousands of traders who are already funded with EdgeFlow Capital.",
       "button": "Start Your Challenge"
     }
   },
@@ -173,7 +173,7 @@
           "a": "A proprietary trading firm provides capital to traders to trade in financial markets. Traders don't use their own money but split profits with the firm based on agreed terms."
         },
         {
-          "q": "How does PropTrade Pro work?",
+          "q": "How does EdgeFlow Capital work?",
           "a": "We evaluate traders through our challenge program. Traders who pass our evaluation criteria receive funded accounts and can keep up to 80% of their profits."
         },
         {
@@ -234,7 +234,7 @@
         },
         {
           "q": "How do I contact support?",
-          "a": "Our support team is available 24/7 via live chat, email at support@proptradepro.com, or through our Discord community."
+          "a": "Our support team is available 24/7 via live chat, email at support@edgeflowcapital.com, or through our Discord community."
         }
       ]
     }
@@ -257,7 +257,7 @@
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
     "refund": "Refund Policy",
-    "copyright": "© 2024 PropTrade Pro. All rights reserved.",
+    "copyright": "© 2024 EdgeFlow Capital. All rights reserved.",
     "disclaimer": "Trading involves substantial risk of loss. Past performance does not guarantee future results."
   }
 }

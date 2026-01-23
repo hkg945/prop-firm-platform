@@ -74,7 +74,7 @@ const mockAccounts: AdminAccount[] = [
   {
     id: 'acc_001',
     userId: 'usr_001',
-    accountNumber: 'PTP-2024-001234',
+    accountNumber: `EF-${Math.floor(Math.random() * 1000000)}`,
     type: 'standard',
     phase: 'challenge_1',
     status: 'active',
@@ -94,7 +94,7 @@ const mockAccounts: AdminAccount[] = [
   {
     id: 'acc_002',
     userId: 'usr_002',
-    accountNumber: 'PTP-2024-001235',
+    accountNumber: `EF-${Math.floor(Math.random() * 1000000)}`,
     type: 'standard',
     phase: 'challenge_2',
     status: 'active',
@@ -114,7 +114,7 @@ const mockAccounts: AdminAccount[] = [
   {
     id: 'acc_003',
     userId: 'usr_003',
-    accountNumber: 'PTP-2024-001236',
+    accountNumber: `EF-${Math.floor(Math.random() * 1000000)}`,
     type: 'express',
     phase: 'funded',
     status: 'active',
@@ -134,7 +134,7 @@ const mockAccounts: AdminAccount[] = [
   {
     id: 'acc_004',
     userId: 'usr_004',
-    accountNumber: 'PTP-2024-001237',
+    accountNumber: `EF-${Math.floor(Math.random() * 1000000)}`,
     type: 'standard',
     phase: 'breached',
     status: 'breached',
@@ -155,7 +155,7 @@ const mockAccounts: AdminAccount[] = [
   {
     id: 'acc_005',
     userId: 'usr_005',
-    accountNumber: 'PTP-2024-001238',
+    accountNumber: `EF-${Math.floor(Math.random() * 1000000)}`,
     type: 'scaling',
     phase: 'challenge_1',
     status: 'active',
@@ -243,7 +243,7 @@ const mockViolations: AccountViolation[] = [
     status: 'reviewed',
     createdAt: '2024-01-17T14:00:00Z',
     reviewedAt: '2024-01-17T15:00:00Z',
-    reviewedBy: 'admin@proptradepro.com',
+    reviewedBy: 'admin@edgeflowcapital.com',
   },
   {
     id: 'vio_003',

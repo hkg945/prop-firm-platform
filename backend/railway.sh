@@ -3,7 +3,7 @@
 # Railway build script
 set -e
 
-echo "🚀 Building PropTrade Pro Backend for Railway..."
+echo "🚀 Building EdgeFlow Capital Backend for Railway..."
 
 # Install dependencies
 npm ci --only=production

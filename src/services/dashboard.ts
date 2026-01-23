@@ -5,7 +5,7 @@ const MOCK_DELAY = 500
 const mockAccount: Account = {
   id: 'acc_001',
   userId: 'usr_001',
-  accountNumber: 'PTP-2024-001234',
+  accountNumber: 'EF-2024-001234',
   type: 'standard',
   phase: 'challenge_1',
   status: 'active',

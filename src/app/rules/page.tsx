@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Shield, AlertTriangle, TrendingUp, Clock, Target, PercentCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Trading Rules - PropTrade Pro',
+  title: 'Trading Rules - EdgeFlow Capital',
   description: 'Understand our trading rules and risk management guidelines. Clear, transparent rules for all traders.',
 }
 
@@ -14,9 +14,9 @@ export default function RulesPage() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">PT</span>
+              <span className="text-white font-bold text-sm">EF</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">PropTrade Pro</span>
+            <span className="text-xl font-bold text-gray-900">EdgeFlow Capital</span>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-sm font-medium text-gray-600 hover:text-primary-600">Home</Link>
@@ -130,7 +130,7 @@ export default function RulesPage() {
 
       <footer className="bg-gray-900 text-gray-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <p className="text-sm text-gray-400 text-center">© 2024 PropTrade Pro. All rights reserved.</p>
+          <p className="text-sm text-gray-400 text-center">© 2024 EdgeFlow Capital. All rights reserved.</p>
         </div>
       </footer>
     </div>

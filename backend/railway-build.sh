@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Railway build script for PropTrade Pro Backend
+# Railway build script for EdgeFlow Capital Backend
 
-echo "🚀 Building PropTrade Pro Backend..."
+echo "🚀 Building EdgeFlow Capital Backend..."
 
 # Install dependencies
 npm install

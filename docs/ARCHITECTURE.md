@@ -2,7 +2,7 @@
 
 ## Overview
 
-PropTrade Pro is a proprietary trading firm platform that provides funded trading accounts to qualified traders. The platform includes an official marketing website, user dashboard, and admin panel.
+EdgeFlow Capital is a proprietary trading firm platform that provides funded trading accounts to qualified traders. The platform includes an official marketing website, user dashboard, and admin panel.
 
 ## Architecture Diagram
 
@@ -206,7 +206,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=proptradepro
+      - POSTGRES_DB=edgeflowcapital
       - POSTGRES_USER=...
       - POSTGRES_PASSWORD=...
 

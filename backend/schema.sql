@@ -1,4 +1,4 @@
--- PropTrade Pro - PostgreSQL Database Schema
+-- EdgeFlow Capital - PostgreSQL Database Schema
 -- Generated: 2024-01-21
 
 -- ============================================
@@ -299,7 +299,7 @@ CREATE OR REPLACE FUNCTION generate_account_number()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.account_number IS NULL THEN
-        NEW.account_number := 'PTP-' || TO_CHAR(CURRENT_DATE, 'YYYY') || '-' || 
+        NEW.account_number := 'EF-' || TO_CHAR(CURRENT_DATE, 'YYYY') || '-' || 
             LPAD(FLOOR(RANDOM() * 1000000)::TEXT, 6, '0');
     END IF;
     RETURN NEW;

@@ -22,7 +22,7 @@
       "success": "成功率"
     },
     "features": {
-      "title": "为什么选择 PropTrade Pro",
+      "title": "为什么选择 EdgeFlow Capital",
       "items": [
         {
           "title": "即时资助",
@@ -72,7 +72,7 @@
     },
     "cta": {
       "title": "准备好开始交易了吗？",
-      "subtitle": "加入数千名已经在 PropTrade Pro 获得资助的交易者行列。",
+      "subtitle": "加入数千名已经在 EdgeFlow Capital 获得资助的交易者行列。",
       "button": "开始挑战"
     }
   },
@@ -173,7 +173,7 @@
           "a": "自营交易公司为交易者提供交易金融市场的资金。交易者不使用自己的资金，而是根据约定条款与公司分成利润。"
         },
         {
-          "q": "PropTrade Pro 如何运作？",
+          "q": "EdgeFlow Capital 如何运作？",
           "a": "我们通过挑战计划评估交易者。符合我们评估标准的交易者将获得资助账户，并可保留高达80%的利润。"
         },
         {
@@ -234,7 +234,7 @@
         },
         {
           "q": "如何联系支持团队？",
-          "a": "我们的支持团队通过在线聊天、电子邮件support@proptradepro.com或Discord社区提供24/7服务。"
+          "a": "我们的支持团队通过在线聊天、电子邮件support@edgeflowcapital.com或Discord社区提供24/7服务。"
         }
       ]
     }
@@ -257,7 +257,7 @@
     "terms": "服务条款",
     "privacy": "隐私政策",
     "refund": "退款政策",
-    "copyright": "© 2024 PropTrade Pro。保留所有权利。",
+    "copyright": "© 2024 EdgeFlow Capital。保留所有权利。",
     "disclaimer": "交易涉及重大损失风险。过去表现不代表未来结果。"
   }
 }

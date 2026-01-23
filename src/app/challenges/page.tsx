@@ -3,16 +3,16 @@ import Link from 'next/link'
 import { Check, Shield, TrendingUp, Calendar } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Trading Challenges - PropTrade Pro',
-  description: 'Choose from our variety of funded trading challenges. Get funded up to $200,000 with PropTrade Pro.',
+  title: 'Trading Challenges - EdgeFlow Capital',
+  description: 'Choose from our variety of funded trading challenges. Get funded up to $200,000 with EdgeFlow Capital.',
 }
 
 export default function ChallengesPage() {
   const challenges = [
-    { id: 'starter', name: 'Starter', price: 49, accountSize: 5000, profitTarget: 8, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 5, duration: 30, features: ['80% Profit Split', '24/5 Support', 'MetaTrader 5', '1:100 Leverage'], popular: false },
-    { id: 'standard', name: 'Standard', price: 99, accountSize: 25000, profitTarget: 8, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 5, duration: 30, features: ['80% Profit Split', '24/5 Support', 'MetaTrader 5', '1:100 Leverage', 'News Trading Allowed'], popular: true },
-    { id: 'professional', name: 'Professional', price: 199, accountSize: 100000, profitTarget: 8, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 5, duration: 30, features: ['80% Profit Split', '24/5 Priority Support', 'MetaTrader 5', '1:100 Leverage', 'News Trading Allowed', 'EAs Allowed'], popular: false },
-    { id: 'enterprise', name: 'Enterprise', price: 399, accountSize: 200000, profitTarget: 6, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 10, duration: 60, features: ['80% Profit Split', '24/7 Priority Support', 'MetaTrader 5', '1:100 Leverage', 'News Trading Allowed', 'EAs Allowed', 'Dedicated Manager'], popular: false },
+    { id: 'starter', name: 'Starter', price: 100, accountSize: 10000, profitTarget: 8, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 5, duration: 'Unlimited', features: ['80% Profit Split', '24/5 Support', 'WebTrader', '1:100 Leverage'], popular: false },
+    { id: 'standard', name: 'Standard', price: 399, accountSize: 50000, profitTarget: 8, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 5, duration: 'Unlimited', features: ['80% Profit Split', '24/5 Support', 'WebTrader', '1:100 Leverage', 'News Trading Allowed'], popular: false },
+    { id: 'professional', name: 'Professional', price: 599, accountSize: 100000, profitTarget: 8, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 5, duration: 'Unlimited', features: ['80% Profit Split', '24/5 Priority Support', 'WebTrader', '1:100 Leverage', 'News Trading Allowed'], popular: true },
+    { id: 'enterprise', name: 'Enterprise', price: 1199, accountSize: 200000, profitTarget: 6, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 10, duration: 'Unlimited', features: ['80% Profit Split', '24/7 Priority Support', 'WebTrader', '1:100 Leverage', 'News Trading Allowed', 'Dedicated Manager'], popular: false },
   ]
 
   const formatCurrency = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(amount)
@@ -23,9 +23,9 @@ export default function ChallengesPage() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">PT</span>
+              <span className="text-white font-bold text-sm">EF</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">PropTrade Pro</span>
+            <span className="text-xl font-bold text-gray-900">EdgeFlow Capital</span>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-sm font-medium text-gray-600 hover:text-primary-600">Home</Link>
@@ -87,7 +87,7 @@ export default function ChallengesPage() {
                     </div>
                     <div className="flex items-center justify-between py-2">
                       <span className="text-sm text-gray-600">Duration</span>
-                      <span className="font-semibold text-gray-900">{challenge.duration} Days</span>
+                      <span className="font-semibold text-gray-900">{challenge.duration}</span>
                     </div>
                   </div>
                   <div className="space-y-2 mb-6">
@@ -139,10 +139,10 @@ export default function ChallengesPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
             <div className="col-span-2 lg:col-span-1">
               <Link href="/" className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-400 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">PT</span>
-                </div>
-                <span className="text-xl font-bold text-white">PropTrade Pro</span>
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">EF</span>
+                  </div>
+                <span className="text-xl font-bold text-white">EdgeFlow Capital</span>
               </Link>
             </div>
             <div>
@@ -175,7 +175,7 @@ export default function ChallengesPage() {
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-gray-700">
-            <p className="text-sm text-gray-400 text-center">© 2024 PropTrade Pro. All rights reserved.</p>
+            <p className="text-sm text-gray-400 text-center">© 2024 EdgeFlow Capital. All rights reserved.</p>
           </div>
         </div>
       </footer>

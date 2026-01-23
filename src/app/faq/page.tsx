@@ -12,7 +12,7 @@ export default function FAQPage() {
   const faqData: Record<string, Array<{ q: string; a: string }>> = {
     general: [
       { q: 'What is a prop firm?', a: 'A proprietary trading firm provides capital to traders to trade in financial markets. Traders don\'t use their own money but split profits with the firm based on agreed terms.' },
-      { q: 'How does PropTrade Pro work?', a: 'We evaluate traders through our challenge program. Traders who pass our evaluation criteria receive funded accounts and can keep up to 80% of their profits.' },
+      { q: 'How does EdgeFlow Capital work?', a: 'We evaluate traders through our challenge program. Traders who pass our evaluation criteria receive funded accounts and can keep up to 80% of their profits.' },
       { q: 'Is there any risk to me?', a: 'You risk only the challenge fee you pay. You never risk your personal capital since you trade with our firm\'s capital.' },
     ],
     challenges: [
@@ -33,7 +33,7 @@ export default function FAQPage() {
     account: [
       { q: 'How do I reset my password?', a: 'Click on \'Forgot Password\' on the login page. You\'ll receive a password reset link at your registered email address.' },
       { q: 'Can I have multiple accounts?', a: 'Yes, you can purchase and manage multiple challenges simultaneously. Each challenge operates independently with its own account balance and targets.' },
-      { q: 'How do I contact support?', a: 'Our support team is available 24/7 via live chat, email at support@proptradepro.com, or through our Discord community.' },
+      { q: 'How do I contact support?', a: 'Our support team is available 24/7 via live chat, email at support@edgeflowcapital.com, or through our Discord community.' },
     ],
   }
 
@@ -59,9 +59,9 @@ export default function FAQPage() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">PT</span>
+              <span className="text-white font-bold text-sm">EF</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">PropTrade Pro</span>
+            <span className="text-xl font-bold text-gray-900">EdgeFlow Capital</span>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-sm font-medium text-gray-600 hover:text-primary-600">Home</Link>
@@ -158,7 +158,7 @@ export default function FAQPage() {
 
       <footer className="bg-gray-900 text-gray-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <p className="text-sm text-gray-400 text-center">© 2024 PropTrade Pro. All rights reserved.</p>
+          <p className="text-sm text-gray-400 text-center">© 2024 EdgeFlow Capital. All rights reserved.</p>
         </div>
       </footer>
     </div>

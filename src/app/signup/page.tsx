@@ -89,18 +89,18 @@ export default function SignupPage() {
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-600 to-primary-800 p-12 flex-col justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">PT</span>
+            <span className="text-white font-bold text-lg">EF</span>
           </div>
-          <span className="text-2xl font-bold text-white">PropTrade Pro</span>
+          <span className="text-2xl font-bold text-white">EdgeFlow Capital</span>
         </Link>
         
         <div>
           <h1 className="text-4xl font-bold text-white mb-6">
-            Start Your Trading<br />Journey Today
+            Trade Our Capital.<br />Keep Your Profits.
           </h1>
           <p className="text-primary-100 text-lg max-w-md mb-8">
-            Pass our evaluation challenge and get funded with up to $200,000.
-            Keep 80% of your profits.
+            Join thousands of traders who are already funded with EdgeFlow Capital.
+            Get access to up to $200,000 in trading capital.
           </p>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white/10 rounded-lg p-4">
@@ -123,7 +123,7 @@ export default function SignupPage() {
         </div>
 
         <p className="text-primary-200 text-sm">
-          © 2024 PropTrade Pro. All rights reserved.
+          © 2024 EdgeFlow Capital. All rights reserved.
         </p>
       </div>
 

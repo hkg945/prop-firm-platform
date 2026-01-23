@@ -37,9 +37,9 @@ export function Footer({ translations }: FooterProps) {
           <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-400 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">PT</span>
+                <span className="text-white font-bold text-sm">EF</span>
               </div>
-              <span className="text-xl font-bold text-white">PropTrade Pro</span>
+              <span className="text-xl font-bold text-white">EdgeFlow Capital</span>
             </Link>
             <p className="text-sm text-gray-400 mb-4">
               {translations['home.hero.subtitle']}

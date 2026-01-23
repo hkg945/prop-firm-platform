@@ -66,7 +66,7 @@ export function OrderEntry({ symbol, className }: OrderEntryProps) {
       tp: useSlTp ? tp : undefined,
       comment,
       timeInForce: timeInForce !== 'gtc' ? timeInForce : undefined,
-    })
+    } as OrderFormData)
   }, [displaySymbol, side, orderType, volume, price, stopPrice, sl, tp, useSlTp, comment, timeInForce, submitOrder])
 
   const handleOCOSubmit = useCallback(() => {

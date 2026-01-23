@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ArrowRight, Award, Zap, DollarSign, Shield, Clock } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'PropTrade Pro - Trade Our Capital, Keep Your Profits',
+  title: 'EdgeFlow Capital - Trade Our Capital, Keep Your Profits',
   description: 'Prove your trading skills and get funded with up to $200,000 in capital. No personal risk, 80% profit split.',
 }
 
@@ -14,9 +14,9 @@ export default function HomePage() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">PT</span>
+              <span className="text-white font-bold text-sm">EF</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">PropTrade Pro</span>
+            <span className="text-xl font-bold text-gray-900">EdgeFlow Capital</span>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-sm font-medium text-primary-600">Home</Link>
@@ -82,7 +82,7 @@ export default function HomePage() {
         <section className="py-16 md:py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">Why Choose PropTrade Pro</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">Why Choose EdgeFlow Capital</h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
@@ -132,7 +132,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Start Trading?</h2>
             <p className="text-primary-100 max-w-2xl mx-auto mb-8">
-              Join thousands of traders who are already funded with PropTrade Pro.
+              Join thousands of traders who are already funded with EdgeFlow Capital.
             </p>
             <Link href="/challenges" className="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-semibold text-primary-600 shadow-sm hover:bg-gray-50">
               Start Your Challenge
@@ -147,9 +147,9 @@ export default function HomePage() {
             <div className="col-span-2 lg:col-span-1">
               <Link href="/" className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-400 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">PT</span>
+                  <span className="text-white font-bold text-sm">EF</span>
                 </div>
-                <span className="text-xl font-bold text-white">PropTrade Pro</span>
+                <span className="text-xl font-bold text-white">EdgeFlow Capital</span>
               </Link>
               <p className="text-sm text-gray-400 mb-4">
                 Prove your skills in our funded trading program and access capital up to $200,000.
@@ -190,7 +190,7 @@ export default function HomePage() {
           </div>
           <div className="mt-12 pt-8 border-t border-gray-700">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-sm text-gray-400">© 2024 PropTrade Pro. All rights reserved.</p>
+              <p className="text-sm text-gray-400">© 2024 EdgeFlow Capital. All rights reserved.</p>
               <p className="text-sm text-gray-400">Trading involves substantial risk of loss. Past performance does not guarantee future results.</p>
             </div>
           </div>

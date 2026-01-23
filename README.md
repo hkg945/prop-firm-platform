@@ -1,4 +1,4 @@
-# PropTrade Pro - Professional Trading Terminal
+# EdgeFlow Capital - Professional Trading Terminal
 
 A full-featured web-based trading terminal with TradingView integration, real-time position tracking, and comprehensive order management for Prop Firm trading.
 
@@ -183,7 +183,7 @@ prop-firm-platform/
 
 ```env
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_APP_NAME=PropTrade Pro
+NEXT_PUBLIC_APP_NAME=EdgeFlow Capital
 NEXT_PUBLIC_GA_ID=       # Optional Google Analytics
 NEXT_PUBLIC_GTM_ID=      # Optional Google Tag Manager
 ```
@@ -205,7 +205,7 @@ vercel --prod
 
 # Set environment variables in Vercel dashboard:
 NEXT_PUBLIC_API_URL=https://your-backend-url.up.railway.app/api/v1
-NEXT_PUBLIC_APP_NAME=PropTrade Pro
+NEXT_PUBLIC_APP_NAME=EdgeFlow Capital
 ```
 
 #### 2. Backend - Railway (Free)
@@ -239,7 +239,7 @@ docker-compose up -d
 #### Frontend (.env.local)
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:3003/api/v1
-NEXT_PUBLIC_APP_NAME=PropTrade Pro
+NEXT_PUBLIC_APP_NAME=EdgeFlow Capital
 NEXT_PUBLIC_APP_URL=http://localhost:3001
 ```
 

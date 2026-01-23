@@ -21,18 +21,30 @@ const navItems = [
 
 export default function TerminalPage() {
   const { user, isAuthenticated, loading: authLoading, logout } = useAuth()
-  const { state: tradingState } = useTrading()
+  const { positions = [], account: tradingAccount } = useTrading()
   const router = useRouter()
   const [activeTab, setActiveTab] = useState('positions')
   const [serverTime, setServerTime] = useState('--:--:--')
 
-  const positions = tradingState?.positions || []
-  const account = tradingState.account || {
+  const account = tradingAccount || {
     balance: 100000,
     equity: 100000,
     usedMargin: 0,
     freeMargin: 100000,
     profit: 0,
+    profitPercent: 0,
+    marginPercent: 0,
+    totalVolume: 0,
+    openPositions: 0,
+    totalTrades: 0,
+    winningTrades: 0,
+    losingTrades: 0,
+    status: 'active',
+    createdAt: new Date().toISOString(),
+    id: 'mock-account',
+    accountNumber: 'EF-MOCK-001',
+    challengeType: 'Evaluation',
+    phase: 'challenge'
   }
 
   useEffect(() => {
@@ -79,9 +91,9 @@ export default function TerminalPage() {
           <div className="p-4 border-b border-gray-800">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">PT</span>
+                <span className="text-white font-bold text-sm">EF</span>
               </div>
-              <span className="text-lg font-bold">PropTrade Pro</span>
+              <span className="text-lg font-bold">EdgeFlow Capital</span>
             </div>
           </div>
 

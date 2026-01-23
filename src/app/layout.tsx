@@ -11,16 +11,16 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'PropTrade Pro - Trade Our Capital, Keep Your Profits',
-    template: '%s | PropTrade Pro',
+    default: 'EdgeFlow Capital - Trade Our Capital, Keep Your Profits',
+    template: '%s | EdgeFlow Capital',
   },
   description: 'Prove your trading skills and get funded with up to $200,000 in capital. No personal risk, 80% profit split, instant payouts.',
   keywords: ['prop firm', 'funded trading', 'forex trading', 'capital funding', 'trading challenge'],
-  authors: [{ name: 'PropTrade Pro' }],
+  authors: [{ name: 'EdgeFlow Capital' }],
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'PropTrade Pro',
+    siteName: 'EdgeFlow Capital',
   },
 }
 

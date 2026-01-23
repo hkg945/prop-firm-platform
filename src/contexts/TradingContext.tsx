@@ -580,7 +580,7 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const value: TradingContextValue = {
-    state,
+    ...state,
     selectSymbol,
     setSymbols,
     updateQuote,
@@ -598,7 +598,7 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
     calculateRisk,
     loadPositions,
     loadAccount,
-    pendingOrder: isSubmitting,
+    isSubmitting,
   }
 
   return (

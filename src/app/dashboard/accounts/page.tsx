@@ -7,7 +7,7 @@ export default function AccountsPage() {
   const accounts = [
     {
       id: 'acc_001',
-      accountNumber: 'PTP-2024-001234',
+      accountNumber: 'EF-2024-001234',
       type: 'standard',
       phase: 'challenge_1',
       balance: 25250,
@@ -16,7 +16,7 @@ export default function AccountsPage() {
     },
     {
       id: 'acc_002',
-      accountNumber: 'PTP-2024-001235',
+      accountNumber: 'EF-2024-001235',
       type: 'express',
       phase: 'challenge_2',
       balance: 52000,

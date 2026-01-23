@@ -26,7 +26,7 @@ export default function AdminViolationsPage() {
 
   const handleResolve = async (violationId: string) => {
     try {
-      await resolveViolation(violationId, 'admin@proptradepro.com')
+      await resolveViolation(violationId, 'admin@edgeflowcapital.com')
       const result = await getViolations(page, 10)
       setViolations(result.data)
     } catch (error) {

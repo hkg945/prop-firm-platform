@@ -28,8 +28,8 @@ export function TradingViewChart({
 }: TradingViewChartProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetRef = useRef<any>(null)
-  const { state } = useTrading()
-  const currentSymbol = propsSymbol || state.currentSymbol?.symbol || 'EURUSD'
+  const { currentSymbol: contextSymbol } = useTrading()
+  const currentSymbol = propsSymbol || contextSymbol?.symbol || 'EURUSD'
   
   // Convert our interval to TradingView format
   const getTvInterval = (interval: string) => {
