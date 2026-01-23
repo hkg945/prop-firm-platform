@@ -31,31 +31,32 @@ export const COMMODITIES: Symbol[] = [
 ]
 
 export function generateMockQuote(symbol: string): Quote {
+  // Approximate 2026/Real Market Prices for better sync with TV Widget
   const basePrice = {
-    'EURUSD': 1.0850,
-    'GBPUSD': 1.2650,
-    'USDJPY': 149.50,
-    'AUDUSD': 0.6520,
-    'USDCAD': 1.3580,
-    'USDCHF': 0.8850,
+    'EURUSD': 1.0850, 
+    'GBPUSD': 1.2750,
+    'USDJPY': 151.50,
+    'AUDUSD': 0.6550,
+    'USDCAD': 1.3550,
+    'USDCHF': 0.9050,
     'NZDUSD': 0.6050,
-    'EURGBP': 0.8570,
-    'BTCUSD': 43500,
-    'ETHUSD': 2280,
-    'XRPUSD': 0.62,
-    'SPX500': 4780,
-    'NAS100': 16750,
-    'UK100': 7680,
-    'DE40': 16750,
-    'XAUUSD': 2035.50,
-    'XAGUSD': 23.15,
-    'CLUSD': 75.80,
+    'EURGBP': 0.8550,
+    'BTCUSD': 92000, 
+    'ETHUSD': 3500,
+    'XRPUSD': 0.60,
+    'SPX500': 5250,
+    'NAS100': 18250,
+    'UK100': 8000,
+    'DE40': 18500,
+    'XAUUSD': 2350.50,
+    'XAGUSD': 28.50,
+    'CLUSD': 82.50,
   }[symbol] || 1.0000
 
   const spread = {
     'forex': 0.0002,
-    'crypto': basePrice * 0.001,
-    'indices': basePrice * 0.002,
+    'crypto': basePrice * 0.0005, // Reduced spread
+    'indices': basePrice * 0.001,
     'commodities': basePrice * 0.0005,
   }['forex']
 

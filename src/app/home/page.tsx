@@ -118,7 +118,7 @@ export default function HomePage() {
                 <div key={step.number} className="relative">
                   {index < 3 && <div className="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-gray-200" />}
                   <div className="relative z-10">
-                    <div className="text-5xl font-bold text-gray-100 mb-4">{step.number}</div>
+                    <div className="text-5xl font-bold text-black mb-4">{step.number}</div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">{step.title}</h3>
                     <p className="text-sm text-gray-500">{step.desc}</p>
                   </div>

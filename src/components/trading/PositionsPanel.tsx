@@ -12,7 +12,10 @@ interface PositionsPanelProps {
 }
 
 export function PositionsPanel({ className }: PositionsPanelProps) {
-  const { positions = [], closePosition, modifyPosition, currentSymbol } = useTrading()
+  const { state, closePosition, modifyPosition } = useTrading()
+  const { positions = [], currentSymbol } = state
+
+  console.log('PositionsPanel - positions:', positions)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editSl, setEditSl] = useState<number>(0)
   const [editTp, setEditTp] = useState<number>(0)
@@ -45,15 +48,15 @@ export function PositionsPanel({ className }: PositionsPanelProps) {
   }
 
   return (
-    <div className={cn('bg-white rounded-xl border border-gray-200 overflow-hidden', className)}>
-      <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+    <div className={cn('bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col h-full', className)}>
+      <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between flex-shrink-0">
         <h3 className="font-semibold text-gray-900">Positions ({positions.length})</h3>
         <button className="p-1 hover:bg-gray-100 rounded">
           <MoreHorizontal className="w-4 h-4 text-gray-500" />
         </button>
       </div>
 
-      <div className="divide-y divide-gray-100 max-h-[400px] overflow-auto">
+      <div className="divide-y divide-gray-100 flex-1 overflow-auto">
         {positions.map((position) => {
           const isLong = position.side === 'long'
           const isProfitable = position.profit >= 0

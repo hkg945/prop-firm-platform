@@ -163,8 +163,8 @@ export default function TerminalPage() {
                   />
 
                   <div className="flex-1 overflow-hidden mt-4">
-                    <div className="bg-white rounded-xl border border-gray-200 h-full overflow-hidden">
-                      <div className="px-4 py-3 border-b border-gray-100">
+                    <div className="bg-white rounded-xl border border-gray-200 h-full overflow-hidden flex flex-col">
+                      <div className="px-4 py-3 border-b border-gray-100 flex-shrink-0">
                         <Tabs
                           tabs={tabs}
                           activeTab={activeTab}
@@ -172,8 +172,8 @@ export default function TerminalPage() {
                           variant="underlined"
                         />
                       </div>
-                      <div className="p-4 overflow-auto">
-                        <PositionsPanel />
+                      <div className="p-4 flex-1 overflow-hidden">
+                        <PositionsPanel className="h-full border-0 rounded-none shadow-none" />
                       </div>
                     </div>
                   </div>

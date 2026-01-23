@@ -241,6 +241,12 @@ const TradingContext = createContext<TradingContextValue | null>(null)
 export function TradingProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(tradingReducer, initialState)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  
+  // Use a ref to access the latest state inside intervals/listeners
+  const stateRef = useRef(state)
+  useEffect(() => {
+    stateRef.current = state
+  }, [state])
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3003/api/v1'
 
@@ -318,8 +324,10 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
         updatedAt: new Date().toISOString(),
       }
 
+      console.log('Before ADD_POSITION - positions count:', state.positions.length)
       dispatch({ type: 'ADD_POSITION', payload: position })
-      console.log('Position added to state')
+      console.log('After ADD_POSITION - positions count:', state.positions.length + 1)
+      console.log('Position added:', position)
 
       const totalProfit = [...(state.positions || []), position].reduce((sum, p) => sum + (p.profit || 0), 0)
       if (state.account) {
@@ -462,7 +470,7 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
     const allSymbols = [...FOREX_PAIRS, ...CRYPTO_PAIRS, ...INDICES, ...COMMODITIES]
     dispatch({ type: 'SET_SYMBOLS', payload: allSymbols })
 
-    const firstSymbol = allSymbols.find(s => s.symbol === 'EURUSD') || allSymbols[0]
+    const firstSymbol = allSymbols.find(s => s.symbol === 'BTCUSD') || allSymbols[0]
     dispatch({ type: 'SET_CURRENT_SYMBOL', payload: firstSymbol })
 
     allSymbols.forEach((symbol) => {
@@ -475,9 +483,16 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: 'SET_CONNECTED', payload: true })
 
     const quoteInterval = setInterval(() => {
+      const currentState = stateRef.current
       allSymbols.forEach((symbol) => {
-        const currentQuote = state.quotes[symbol.symbol] || generateMockQuote(symbol.symbol)
-        const change = (Math.random() - 0.5) * symbol.pipSize * 2
+        // Skip Crypto pairs managed by WebSocket to avoid conflict with real data
+        if (['BTCUSD', 'ETHUSD', 'XRPUSD', 'SOLUSD'].includes(symbol.symbol)) {
+           return;
+        }
+
+        const currentQuote = currentState.quotes[symbol.symbol] || generateMockQuote(symbol.symbol)
+        // Reduced volatility for smoother experience
+        const change = (Math.random() - 0.5) * symbol.pipSize * 0.5 
         const newQuote: Quote = {
           ...currentQuote,
           bid: currentQuote.bid + change,
@@ -486,15 +501,81 @@ export function TradingProvider({ children }: { children: React.ReactNode }) {
         }
         dispatch({ type: 'UPDATE_QUOTE', payload: { symbol: symbol.symbol, quote: newQuote } })
 
-        dispatch({
-          type: 'UPDATE_POSITION_PRICE',
-          payload: { symbol: symbol.symbol, bid: newQuote.bid, ask: newQuote.ask },
-        })
+        // Only update position prices if we have open positions for this symbol
+        if (currentState.positions.some(p => p.symbol === symbol.symbol && p.status === 'open')) {
+          dispatch({
+            type: 'UPDATE_POSITION_PRICE',
+            payload: { symbol: symbol.symbol, bid: newQuote.bid, ask: newQuote.ask },
+          })
+        }
       })
-    }, 500)
+    }, 1000)
+
+    // Binance WebSocket for Real-time Crypto Prices
+    let ws: WebSocket | null = null;
+    const connectBinanceWS = () => {
+        // Map our internal symbols (BTCUSD) to Binance streams (btcusdt@trade)
+        const cryptoMap: Record<string, string> = {
+          'BTCUSD': 'btcusdt',
+          'ETHUSD': 'ethusdt',
+          'XRPUSD': 'xrpusdt',
+          'SOLUSD': 'solusdt'
+        };
+
+        const streams = Object.values(cryptoMap).map(s => `${s}@trade`).join('/');
+        const wsUrl = `wss://stream.binance.com:9443/stream?streams=${streams}`;
+        
+        console.log('Connecting to Binance WS:', wsUrl);
+        ws = new WebSocket(wsUrl);
+
+        ws.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                const payload = data.data;
+                
+                const binanceSymbol = payload.s.toLowerCase(); // btcusdt
+                const price = parseFloat(payload.p);
+                
+                // Find internal symbol that maps to this binance symbol
+                const internalSymbol = Object.keys(cryptoMap).find(key => cryptoMap[key] === binanceSymbol);
+                
+                if (internalSymbol) {
+                     const currentQuote = stateRef.current.quotes[internalSymbol] || generateMockQuote(internalSymbol);
+                     
+                     const newQuote: Quote = {
+                        ...currentQuote,
+                        bid: price,
+                        ask: price, // Spread is negligible for this demo
+                        last: price,
+                        time: new Date().toISOString(),
+                     }
+                     
+                     dispatch({ type: 'UPDATE_QUOTE', payload: { symbol: internalSymbol, quote: newQuote } });
+                     
+                     // Trigger position update immediately for real-time PnL
+                     if (stateRef.current.positions.some(p => p.symbol === internalSymbol && p.status === 'open')) {
+                        dispatch({
+                            type: 'UPDATE_POSITION_PRICE',
+                            payload: { symbol: internalSymbol, bid: price, ask: price },
+                        })
+                     }
+                }
+            } catch (e) {
+                // ignore parse errors
+            }
+        };
+        
+        ws.onerror = (e) => {
+            console.error('Binance WS Error', e);
+        };
+    };
+    
+    // Connect to Binance WS
+    connectBinanceWS();
 
     return () => {
       clearInterval(quoteInterval)
+      if (ws) ws.close();
     }
   }, [])
 
