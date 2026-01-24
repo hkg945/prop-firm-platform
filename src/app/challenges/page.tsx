@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ChallengesPage() {
   const challenges = [
-    { id: 'starter', name: 'Starter', price: 100, accountSize: 10000, profitTarget: 8, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 5, duration: 'Unlimited', features: ['80% Profit Split', '24/5 Support', 'WebTrader', '1:100 Leverage'], popular: false },
+    { id: 'starter', name: 'Starter', price: 99, accountSize: 10000, profitTarget: 8, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 5, duration: 'Unlimited', features: ['80% Profit Split', '24/5 Support', 'WebTrader', '1:100 Leverage'], popular: false },
     { id: 'standard', name: 'Standard', price: 399, accountSize: 50000, profitTarget: 8, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 5, duration: 'Unlimited', features: ['80% Profit Split', '24/5 Support', 'WebTrader', '1:100 Leverage', 'News Trading Allowed'], popular: false },
     { id: 'professional', name: 'Professional', price: 599, accountSize: 100000, profitTarget: 8, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 5, duration: 'Unlimited', features: ['80% Profit Split', '24/5 Priority Support', 'WebTrader', '1:100 Leverage', 'News Trading Allowed'], popular: true },
     { id: 'enterprise', name: 'Enterprise', price: 1199, accountSize: 200000, profitTarget: 6, maxDrawdown: 10, dailyDrawdown: 5, minTradingDays: 10, duration: 'Unlimited', features: ['80% Profit Split', '24/7 Priority Support', 'WebTrader', '1:100 Leverage', 'News Trading Allowed', 'Dedicated Manager'], popular: false },

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Shield, AlertTriangle, TrendingUp, Clock, Target, PercentCircle } from 'lucide-react'
+import { Shield, AlertTriangle, TrendingUp, Clock, Target, PercentCircle, Zap } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Trading Rules - EdgeFlow Capital',
@@ -76,7 +76,7 @@ export default function RulesPage() {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tight text-gray-900">Trading Rules</h2>
               </div>
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4 mb-6">
                 {[
                   { icon: Target, title: 'Profit Target', desc: 'Achieve the specified profit target within the challenge period to qualify for funding.' },
                   { icon: Clock, title: 'Trading Days', desc: 'Minimum trading days required. Day count includes any day with a trade executed.' },
@@ -93,6 +93,20 @@ export default function RulesPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              <div className="bg-gradient-to-r from-primary-50 to-white rounded-xl border border-primary-100 p-6 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
+                    <Zap className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">TradingView Webhook Integration</h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Directly connect TradingView Webhooks for automated trading. Seamlessly execute trades based on your TradingView alerts without manual intervention, ensuring you never miss a trading opportunity.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
